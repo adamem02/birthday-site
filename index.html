@@ -9,34 +9,91 @@
             text-align: center;
             background-color: #ffccff;
             font-family: Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
         }
         h1 {
             color: #ff3399;
             font-size: 3em;
         }
-        .balloon {
-            position: absolute;
-            bottom: 0;
-            animation: float 5s linear infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(100vh); }
-            100% { transform: translateY(-10vh); }
-        }
         .hidden {
             display: none;
+        }
+        .yes-button {
+            position: absolute;
+            transition: all 0.3s;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            background-color: #ff3399;
+            color: white;
+            border: none;
+            border-radius: 10px;
+        }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: gold;
+            opacity: 0.8;
+            border-radius: 50%;
+            top: -10px;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
         }
     </style>
 </head>
 <body>
     <h1>🎉 Happy Birthday! 🎂</h1>
     <p>Click the button for a surprise!</p>
-    <button onclick="revealMessage()">🎁 Open Gift</button>
-    <p id="message" class="hidden">🎈 Wishing you a fantastic year ahead! 🎈</p>
+    <button onclick="showChaseButton()">🎁 Open Gift</button>
     
+    <button id="yesButton" class="yes-button hidden" onclick="showMessage()">Yes</button>
+    
+    <div id="message" class="hidden">
+        <h2>💖 Wishing you the happiest birthday! 🎊🎂</h2>
+    </div>
+
     <script>
-        function revealMessage() {
+        function showChaseButton() {
+            const yesButton = document.getElementById('yesButton');
+            yesButton.classList.remove('hidden');
+            startChase();
+        }
+
+        function startChase() {
+            const yesButton = document.getElementById('yesButton');
+            let moveCount = 0;
+            let interval = setInterval(() => {
+                if (moveCount > 5) {
+                    clearInterval(interval);
+                    yesButton.onclick = showMessage;
+                    return;
+                }
+                yesButton.style.top = Math.random() * 80 + 'vh';
+                yesButton.style.left = Math.random() * 80 + 'vw';
+                moveCount++;
+            }, 500);
+        }
+
+        function showMessage() {
+            document.getElementById('yesButton').classList.add('hidden');
             document.getElementById('message').classList.remove('hidden');
+            startConfetti();
+        }
+
+        function startConfetti() {
+            for (let i = 0; i < 100; i++) {
+                let confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
         }
     </script>
 </body>
