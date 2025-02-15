@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #ffccff;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #ff3399;
+            font-size: 3em;
+        }
+        .balloon {
+            position: absolute;
+            bottom: 0;
+            animation: float 5s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-10vh); }
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 Happy Birthday! 🎂</h1>
+    <p>Click the button for a surprise!</p>
+    <button onclick="revealMessage()">🎁 Open Gift</button>
+    <p id="message" class="hidden">🎈 Wishing you a fantastic year ahead! 🎈</p>
+    
+    <script>
+        function revealMessage() {
+            document.getElementById('message').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
