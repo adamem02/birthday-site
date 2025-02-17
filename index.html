@@ -3,32 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>🎉 Happy Birthday! 🎂</title>
     <style>
         body {
             text-align: center;
-            background-color: #ffccff;
-            font-family: Arial, sans-serif;
+            background: #FADADD;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             position: relative;
             overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         h1 {
-            color: #ff3399;
-            font-size: 3em;
+            color: #333;
+            font-size: 2.8em;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
         .hidden {
             display: none;
         }
+        button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 15px;
+            color: #333;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        button:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
         .yes-button {
             position: absolute;
-            transition: all 0.3s;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            cursor: pointer;
-            background-color: #ff3399;
-            color: white;
-            border: none;
-            border-radius: 10px;
         }
         .confetti {
             position: fixed;
@@ -44,23 +59,38 @@
             0% { transform: translateY(0); }
             100% { transform: translateY(100vh); }
         }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2em;
+            }
+            button {
+                font-size: 1.2em;
+                padding: 12px 20px;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>🎉 Happy Birthday! 🎂</h1>
-    <p>Click the button for a surprise!</p>
-    <button onclick="showChaseButton()">🎁 Open Gift</button>
+    <p id="surpriseText">Click the button for a surprise!</p>
+    <button id="openGiftButton" onclick="showChaseButton()">🎁 Open Gift</button>
     
     <button id="yesButton" class="yes-button hidden" onclick="showMessage()">Yes</button>
     
     <div id="message" class="hidden">
-        <h2>💖 Wishing you the happiest birthday! 🎊🎂</h2>
+        <h2 style="font-size: 2em; color: #333; font-weight: bold;">💖 Wishing you the happiest birthday! 🎊🎂</h2>
     </div>
 
     <script>
         function showChaseButton() {
+            document.getElementById('openGiftButton').classList.add('hidden');
+            document.getElementById('surpriseText').classList.add('hidden');
             const yesButton = document.getElementById('yesButton');
             yesButton.classList.remove('hidden');
+            yesButton.style.position = 'absolute';
+            yesButton.style.padding = '15px 30px';
+            yesButton.style.fontSize = '1.5em';
+            yesButton.style.transition = 'top 0.3s, left 0.3s';
             startChase();
         }
 
@@ -73,8 +103,8 @@
                     yesButton.onclick = showMessage;
                     return;
                 }
-                yesButton.style.top = Math.random() * 80 + 'vh';
-                yesButton.style.left = Math.random() * 80 + 'vw';
+                yesButton.style.top = Math.random() * 70 + 'vh';
+                yesButton.style.left = Math.random() * 70 + 'vw';
                 moveCount++;
             }, 500);
         }
@@ -86,7 +116,7 @@
         }
 
         function startConfetti() {
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 50; i++) {
                 let confetti = document.createElement('div');
                 confetti.classList.add('confetti');
                 confetti.style.left = Math.random() * 100 + 'vw';
